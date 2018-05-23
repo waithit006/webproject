@@ -1,0 +1,71 @@
+<!-- <h2>Login</h2>
+<form (submit)="onLoginSubmit()">
+   
+    <div class="form-group">
+      <label for="exampleInputPassword1">Username</label>
+      <input type="text"  [(ngModel)]="username" name="username" class="form-control" placeholder="Username">
+    </div>
+  
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password"  [(ngModel)]="password" name="username" class="form-control"  placeholder="Password">
+    </div>
+  
+    
+    
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form> -->
+
+
+
+   
+            <div class="row justify-content-center align-items-center h-100">
+              
+                <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
+         
+                    <ul class="nav nav-tabs border">
+                        <li class="nav-item">
+                          <a class="nav-link active" data-toggle="tab" href="#home">ล็อคอิน</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#menu1">ลงทะเบียน</a>
+                        </li>
+                      </ul>
+                    <div class="card">
+                        <div class="tab-content">
+                            <div class="tab-pane container active" id="home">
+                                <article class="card-body">
+                                    <form (submit)="onLoginSubmit()" >
+                                     <div class="form-group">
+                                       <label>อีเมล์</label>
+                                         <input [(ngModel)]="username" name="username"  class="form-control" placeholder="Email" type="email">
+                                     </div> <!-- form-group// -->
+                                     <div class="form-group">
+                                       <a class="float-right" href="#">ลืมรหัส?</a>
+                                       <label>Password</label>
+                                         <input class="form-control" [(ngModel)]="password" name="password" placeholder="กรอกรหัสผ่าน" type="password">
+                                     </div> <!-- form-group// --> 
+                                     <div class="form-group"> 
+                                     <div class="checkbox">
+                                       <label> <input type="checkbox" [(ngModel)]="remember" (change)="checkfunction()" name="remember"> จำรหัสผ่าน </label>
+                                     </div> <!-- checkbox .// -->
+                                     </div> <!-- form-group// -->  
+                                     <div class="form-group">
+                                         <button type="submit" class="btn btn-primary btn-block"> ล็อคอิน  </button>
+                                     </div> <!-- form-group// -->                                                           
+                                 </form>
+                                 </article>
+
+                            </div>
+                            <div class="tab-pane container fade" id="menu1">
+                                <app-register></app-register>
+                            </div>
+                          </div>
+             
+                        </div>
+                </div>
+                
+            </div>
+  
+
+            

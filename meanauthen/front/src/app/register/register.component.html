@@ -1,0 +1,40 @@
+<form (submit)="onRegisterSubmit()" class="m-3">
+  <div class="form-group">
+    <label for="exampleInputEmail1">ชื่อ</label>
+    <input type="text" class="form-control" [(ngModel)]="firstname" name="firstname" placeholder="กรอกชื่อ">
+  
+  </div>
+
+  <div class="form-group">
+      <label for="exampleInputEmail1">นามสกุล</label>
+      <input type="text" class="form-control" [(ngModel)]="lastname" name="lastname" placeholder="กรอกนามสกุล">
+    
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputPassword1">Email</label>
+        <input type="email"  [(ngModel)]="email" name="emailregis" class="form-control"  placeholder="Email">
+      </div>
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password"  [(ngModel)]="password" name="passregis" class="form-control"  placeholder="Password">
+  </div>
+  <div class="form-group">
+      <label for="exampleInputPassword1">วันเกิด</label>
+  <input type="date" name="bday" class="form-control" [(ngModel)]="birthdate">
+  
+  <div class="form-group">
+</div>
+<div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline1" value="ชาย" name="customRadioInline1" [(ngModel)]="gender" class="custom-control-input">
+    <label class="custom-control-label" for="customRadioInline1" >ชาย</label>
+  </div>
+
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio"  [(ngModel)]="gender " value="หญิง" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+    <label class="custom-control-label" for="customRadioInline2">หญิง</label>
+  </div>
+  </div>
+  <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
+</form>

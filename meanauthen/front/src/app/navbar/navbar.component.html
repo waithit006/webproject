@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark fixed-top" *ngIf="!authservice.loggedIn()">
+    <a class="navbar-brand" href="#">
+
+        <img src="/assets/image/navbar_logo.jpg" width="50" height="50" class="d-inline-block align-top rounded-circle" alt="">
+     
+      </a>
+     
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <h3 style="color: white;margin-right: 30px;"></h3>
+      <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    <ul class="navbar-nav ml-auto " style="margin-right: 50px;">
+      <li class="nav-item mr-3" >
+        <a class="nav-link" [routerLink]="['/']"><div style="font-size:20px;"><i class="fas fa-user-friends"></i><span class="badge badge-primary">4</span></div> </a>
+      </li>
+      <li class="nav-item mr-3">
+        <a class="nav-link" [routerLink]="['/dashboard']"><div style="font-size:20px;"><i class="fas fa-comments"></i><span class="badge badge-danger">4</span></div></a>
+      </li>
+      <li *ngIf="!authservice.loggedIn()" class="nav-item ">
+          <a class="nav-link" [routerLink]="['/profile']"><div style="font-size:20px;"><i class="fas fa-heart"></i><span class="badge badge-danger">4</span></div></a>
+        </li>
+      <li class="nav-item dropdown" style="margin-left: 40px;">
+        <a class="nav-link dropdown-toggle" style="color:gainsboro;font-weight: bold"  href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <img src="/assets/image/navbar_logo.jpg" *ngIf="profiledata?.imageprofile==undefined" style="width: 36px;height: 36px;margin-right: 5px" alt="..." class="rounded-circle">
+          <img src="{{getimage(profiledata.imageprofile)}}" *ngIf="profiledata?.imageprofile!=undefined" style="width: 36px;height: 36px;margin-right: 5px" alt="..." class="rounded-circle">
+          {{profiledata?.firstname + " " + profiledata?.lastname}}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
+          <a *ngIf="authservice.loggedIn()" class="dropdown-item"  [routerLinkActive]="['active']" [routerLink]="['/login']">Login</a>
+          <a *ngIf="authservice.loggedIn()" class="dropdown-item" [routerLinkActive]="['active']" [routerLink]="['/register']">Register</a>
+          <a *ngIf="!authservice.loggedIn()" class="dropdown-item" [routerLinkActive]="['active']" (click)="onLogoutClick()">ออกจากระบบ</a>
+
+        </div>
+      </li>
+    </ul>
+  
+    
+  </div>
+</nav>
+
+
+<div class="icon-bar float-left shadow bg-white rounded d-none d-lg-block" *ngIf="!authservice.loggedIn()">
+  <div class="iconroute" style="padding-top: 70px">
+    <a class="active" href="#"><i class="fa fa-home"></i></a> 
+    <a href="#"><i class="fas fa-user-circle"></i></a> 
+    <a href="#"><i class="fa fa-envelope"></i></a> 
+    <a href="/setting" ><i class="fas fa-cog"></i></a>
+  </div>
+  </div>
+
+  <div class="chat-bar shadow bg-white rounded d-none d-lg-block" *ngIf="!authservice.loggedIn()">
+      <div class="iconroute" style="padding-top: 70px">
+      <a class="active" href="#"><i class="fa fa-home"></i></a> 
+      <a href="#"><i class="fa fa-search"></i></a> 
+      <a href="#"><i class="fa fa-envelope"></i></a> 
+      <a href="#"><i class="fa fa-globe"></i></a>
+      <a href="#"><i class="fa fa-trash"></i></a> 
+    </div>
+  </div>

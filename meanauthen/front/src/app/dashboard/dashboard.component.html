@@ -1,0 +1,314 @@
+
+
+<div class="container-full" style="margin-top: 30px">
+ 
+    
+    <div class="row" >
+      <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12  mt-3" >
+          <div class="news-feed-form block shadow-sm p-3  bg-white rounded mb-3">
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">
+                    <i class="fas fa-rss-square"></i> Status
+                  </a>
+                </li>
+      
+              </ul>
+              <div class="form-group row mt-3" style="margin-left: 10px;">
+                <div class="photouser">
+                    <img src="/assets/image/navbar_logo.jpg" *ngIf="profiledata?.imageprofile==undefined"  style="width: 36px;height: 36px;"
+                    alt="..." class="rounded-circle">
+                  <img src="{{getimage(profiledata.imageprofile)}}" *ngIf="profiledata?.imageprofile!=undefined" style="width: 36px;height: 36px;"
+                    alt="..." class="rounded-circle">
+                </div>
+                <div class="text_area">
+                  <textarea class="form-control" [(ngModel)]="posts.plaintext" name="ball" rows="5" id="comment" placeholder="คิดอะไรอยู่?"></textarea>
+                  <span class="material-input"></span>
+                </div>
+              </div>
+              <div class="row border-top" style="padding-left: 30px;padding-top: 10px;">
+                <a href="">
+                  <div style="font-size:30px;">
+                    <i class="fas fa-images"></i>
+                  </div>
+                </a>
+                <a href="" style="margin-left: 50px">
+                  <div style="font-size:30px;;">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
+                </a>
+                <button type="button" class="btn btn-primary ml-auto mr-3" (click)="PostSubmit()">โพสต์</button>
+              </div>
+            </div>
+
+  
+          <div class="about block shadow-sm pt-3 pl-3 pr-3 mb-3  bg-white rounded" *ngFor="let item of postdata?.reverse(); let i = index">
+        <div class="headerstatus row" style="padding-left: 25px">
+          <div class="photouser">
+              <img src="/assets/image/navbar_logo.jpg" *ngIf="profiledata?.imageprofile==undefined"  style="width: 36px;height: 36px;"
+              alt="..." class="rounded-circle">
+            <img src="{{getimage(item?.imageprofile)}}" *ngIf="profiledata?.imageprofile!=undefined" style="width: 36px;height: 36px;"
+              alt="..." class="rounded-circle">
+              
+          </div>
+          <div class="author-date ml-3">
+            <div class="author" style="font-weight: bold;font-size: 14px;color: #515365;">
+              {{item?.name}}</div>
+            <div class="post_data" style="font-size: 12px;color: #888da8;">
+              {{checktime(item?.create_on)}}
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="des" style="padding-top: 20px;padding-left: 10px;padding-right: 10px;width: 100%;">
+          {{item?.plaintext}}
+
+  
+        </div>
+        <div class="foot row border-top mx-auto p-3" style="width:97%;margin-top: 25px;">
+            <div style="font-size:20px;">
+              <i class="far fa-heart " id="like{{i}}" (click)="like(item._id,$event) " [ngStyle]="{'color':checklike(item.like_by)===true?'red':'#c2c5d9'}">
+                
+              <span style="margin-left: 10px;">{{item.like_by.length}}</span></i>
+            </div>
+    
+        
+          <div class="ml-auto row">
+      
+              <div style="font-size:20px;">
+                <i class="far fa-comment-alt">
+                  <span style="margin-left: 10px;">{{item.comment.length}}</span>
+                </i>
+              </div>
+       
+      
+              <div style="font-size:20px;margin-left: 20px;margin-right: 20px;">
+                <i class="fas fa-share-square">
+                  <span style="margin-left: 10px;">{{item.shared_by.length}}</span>
+                </i>
+              </div>
+           
+          </div>
+        </div>
+      </div>
+
+      
+  
+      <div class="about block shadow-sm pt-3 pl-3 pr-3 bg-white rounded">
+        <div class="headerstatus row" style="padding-left: 25px">
+          <div class="photouser">
+            <img src="https://www.ienglishstatus.com/wp-content/uploads/2018/04/Anonymous-Whatsapp-profile-picture.jpg" style="width: 36px;height: 36px;"
+              alt="..." class="rounded-circle">
+          </div>
+          <div class="author-date ml-3">
+            <div class="author" style="font-weight: bold;font-size: 14px;color: #515365;">
+              Ball Waithid</div>
+            <div class="post_data" style="font-size: 12px;color: #888da8;">
+              12 mins
+            </div>
+          </div>
+  
+  
+        </div>
+  
+        <div class="des" style="padding-top: 20px;padding-left: 10px;padding-right: 10px;width: 100%;">
+          เท่บ่ครับ
+          <img src="https://img00.deviantart.net/ab7c/i/2015/194/9/f/dota2_2015_short_film_by_biggreenpepper-d913e9a.jpg" alt="..."
+            class="rounded mx-auto d-block mt-3" style="max-width: 100%;">
+        </div>
+        <div class="foot row border-top mx-auto p-3" style="width:97%;margin-top: 25px;">
+          <a href="" style="color:#c2c5d9;">
+            <div style="font-size:20px;">
+              <i class="far fa-heart"></i>
+              <span style="margin-left: 10px;">5</span>
+            </div>
+          </a>
+          <div class="ml-auto row">
+            <a href="" style="color:#c2c5d9;">
+              <div style="font-size:20px;">
+                <i class="far fa-comment-alt">
+                  <span style="margin-left: 10px;">5</span>
+                </i>
+              </div>
+            </a>
+            <a href="" style="margin-left: 20px;margin-right: 20px;color:#c2c5d9;">
+              <div style="font-size:20px;">
+                <i class="fas fa-share-square">
+                  <span style="margin-left: 10px;">6</span>
+                </i>
+              </div>
+            </a>
+          </div>
+        </div>
+  
+  
+      </div>
+    </div>
+  
+  
+    <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12  mt-3">
+      <div class="about block shadow-sm p-3  bg-white rounded">
+        <div class="head border-bottom p-1" style="width: 100%;font-weight: bold;">
+          โปรไฟล์
+        </div>
+        <div class="detailprofile mt-3">
+          <i class="fas fa-transgender" style="color:gray"></i>
+          <b> เพศ </b> :
+          <br>
+          <i class="fas fa-birthday-cake" style="color:gray"></i>
+          <b> วันเกิด : </b>
+          <br>
+          <i class="far fa-address-card" style="color:gray"></i>
+          <b> ที่อยู่ : </b>
+          <br>
+          <i class="fab fa-angellist" style="color:gray"></i>
+          <b> เกี่ยวกับฉัน :</b> About Me: Hi, I’m James, I’m 36 and I work as a Digital Designer for the “Daydreams” Agency in
+          Pier 56. Favourite TV Shows: Breaking Good, RedDevil, People of Interest, The Running Dead, Found, American Guy.
+          <br>
+        </div>
+      </div>
+  
+  
+  
+    </div>
+  
+    <div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12  mt-3">
+      <div class="about block shadow-sm p-3 mb-3 bg-white rounded">
+        <div class="head border-bottom p-1 mb-3" style="width: 100%;font-weight: bold;">
+          เพื่อนแนะนำ
+        </div>
+        <div class="row p-1 justify-content-md-center">
+          <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+            <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+              alt="..." class="rounded ">
+  
+          </div>
+          <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+            <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+              alt="..." class="rounded ">
+  
+          </div>
+          <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+            <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+              alt="..." class="rounded ">
+  
+          </div>
+  
+        </div>
+  
+        <div class="row p-1 justify-content-md-center">
+          <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+            <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+              alt="..." class="rounded ">
+  
+          </div>
+          <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+            <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+              alt="..." class="rounded ">
+  
+          </div>
+          <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+            <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+              alt="..." class="rounded ">
+  
+          </div>
+  
+        </div>
+  
+      </div>
+  
+
+      <div class="about block shadow-sm p-3 mb-3  bg-white rounded">
+          <div class="head border-bottom p-1 mb-3" style="width: 100%;font-weight: bold;">
+           กิจกรรมล่าสุด
+          </div>
+          <div class="row p-1 justify-content-md-center">
+            <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+              <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+                alt="..." class="rounded ">
+    
+            </div>
+            <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+              <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+                alt="..." class="rounded ">
+    
+            </div>
+            <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+              <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+                alt="..." class="rounded ">
+    
+            </div>
+    
+          </div>
+    
+          <div class="row p-1 justify-content-md-center">
+            <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+              <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+                alt="..." class="rounded ">
+    
+            </div>
+            <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+              <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+                alt="..." class="rounded ">
+    
+            </div>
+            <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+              <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+                alt="..." class="rounded ">
+    
+            </div>
+    
+          </div>
+    
+        </div>
+
+        <div class="about block shadow-sm p-3  bg-white rounded">
+            <div class="head border-bottom p-1 mb-3" style="width: 100%;font-weight: bold;">
+             วันเกิด
+            </div>
+            <div class="row p-1 justify-content-md-center">
+              <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+                <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+                  alt="..." class="rounded ">
+      
+              </div>
+              <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+                <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+                  alt="..." class="rounded ">
+      
+              </div>
+              <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+                <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+                  alt="..." class="rounded ">
+      
+              </div>
+      
+            </div>
+      
+            <div class="row p-1 justify-content-md-center">
+              <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+                <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+                  alt="..." class="rounded ">
+      
+              </div>
+              <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+                <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+                  alt="..." class="rounded ">
+      
+              </div>
+              <div class="col sm border p-0 m-1" style="width:60px;height: 60px;">
+                <img src="http://cdn.dota2.com/apps/dota2/images/heroes/shadow_shaman_full.png?v=4520754?v=4520754" style="width:100%;height: 100%;"
+                  alt="..." class="rounded ">
+      
+              </div>
+      
+            </div>
+      
+          </div>
+    </div>
+  </div>
+  </div>
+  
+  

@@ -1,0 +1,128 @@
+.img-fluid{
+    max-width: 100%;
+    height: auto;
+}
+
+.header{
+    background-image: url("https://images2.alphacoders.com/474/thumb-1920-474206.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin-bottom: 0;
+    max-width: 100%;
+    height: 378px;
+}
+
+.profile{
+    max-width: 100%;
+    min-height: 80px;
+    z-index: 3;
+    background-color: white;
+}
+
+textarea{
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	width: 100%;
+}
+.profile ul{
+  margin-left: 60px;
+}
+
+.profile ul a{
+    margin-right: 100px;
+}
+
+.detail-profile{
+    max-width: 200px;
+    z-index: 4;
+}
+
+.container-full {
+    margin: 0 auto;
+    max-width: 100%;
+    width: 1280px;
+    margin-bottom: 100px;
+   position:relative;
+  }
+
+  .leftprofile{
+      width: 45%;
+  }
+
+  .rightprofile{
+    width: 45%;
+    margin-left: 150px;
+}
+ 
+ .blue-row{
+     height: 200px;
+     background: linear-gradient(#4b7fe4, #99B4E8)
+ }
+ .grey-row{
+     background-color: #e3e3e3;   
+ }
+ 
+ .darkgrey-row{
+     height: 100px;
+     background-color: #bebebe;   
+ }
+ 
+ .map{
+     height: 200px;
+     max-width: 100%;
+     position: absolute;
+     top:330px;
+     left:50%;
+     z-index:9999;
+   transform:translate(-50%,-50%);
+   /* background-color: red; */
+ }
+ .img-thumbnail{
+    height: 160px;
+    width: 160px;
+ }
+
+.about{
+    text-align: left;
+}
+
+.profile-menu{
+align-items: center;
+ list-style-type: none;
+width: 431px;
+height: 100%;
+margin: 0;
+padding: 0;
+overflow: hidden;
+}
+
+.profile-menu li{
+    float: left;
+    }
+
+    .profile-menu li a{
+        display: block;
+        color: black;
+        text-align: center;
+        text-decoration: none;
+        }
+
+        .profile-menu li a:hover{
+            background-color: #111111;
+            }
+
+
+       .text_area{
+           width: 90%;
+           margin-left: 10px
+       }     
+
+       .fa-heart{
+           color:#c2c5d9;
+       }
+       .fa-heart:hover{ 
+        color:red;
+    }
