@@ -33,6 +33,7 @@ private validate:ValidateService) { }
           cssClass: 'alert-success',
           timeout: 5000});
           this.router.navigate(['dashboard']);
+          location.reload();
       }else{
         this.flashmessage.show(data['msg'],{
           cssClass: 'alert-danger',

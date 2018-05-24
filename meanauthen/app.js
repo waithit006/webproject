@@ -3,15 +3,19 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
+const http = require('http');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
+const socketIO =  require('socket.io');
 // var date = new Date().toISOString().
 // replace(/T/, ' ').      
 // replace(/\..+/, '');
 
 //console.log(date);
+
+
 
 mongoose.connect(config.database);
 
@@ -62,11 +66,12 @@ app.get('/', (req,res) =>{
   var upload = multer({ storage: storage })
 
   app.post('/profile', upload.fields([{ name: 'profile', maxCount: 1 },
-  { name: 'cover', maxCount: 1 }]), function (req, res, next) {
+  { name: 'cover', maxCount: 1 },{ name: 'imagepost', maxCount: 1 }]), function (req, res, next) {
 
     if(!req.files) return res.json({seccess:false})
     else res.json({success:true,result:req.files});
   
+   console.log(req.files);
    
   })
 
@@ -78,3 +83,13 @@ console.log("server started on port"+ port);
 
 });
 
+const server = http.Server(app);
+server.listen(3000);
+
+const io = socketIO(server);
+
+io.on('connection',(socket)=>{
+  socket.emit('hello',{
+    greeting: 'Hello paul'
+  })
+})

@@ -1,0 +1,49 @@
+
+      <div class="about block shadow-sm pt-3 pl-3 pr-3 bg-white rounded">
+        <div class="head border-bottom">
+        <h2> ตั้งค่าเกี่ยวกับฉัน</h2>
+         </div>
+   
+         <form class="m-3 pb-3">
+           
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">เกี่ยวกับฉัน</label>
+            <textarea class="form-control" name="aboutme" [(ngModel)]="profile.aboutme" value="{{profile?.aboutme}}" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+               
+          <div class="form-group">
+            <label class="mr-sm-2" for="inlineFormCustomSelect">สถานะ</label>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="status" [(ngModel)]="profile.status">
+              <option selected>โปรดเลือก</option>
+              <option value="โสด">โสด</option>
+              <option value="มีแฟนแล้ว">มีแฟนแล้ว</option>
+              <option value="แต่งงาน">แต่งงาน</option>
+              <option value="เหงาเบอร์ใหญ่">เหงาเบอร์ใหญ่</option>
+              <option value="แอบคุย">แอบคุย</option>
+            </select>
+          </div>
+               
+                        
+                 <div class="form-group">
+                     <label for="exampleInputEmail1">เบอร์โทร</label>
+                     <input type="text" class="form-control" [(ngModel)]="profile.tel" value="{{profile?.tel}}" name="lastname">
+                   
+                   </div>
+
+                   <div class="form-group">
+                    <label for="exampleInputEmail1">ที่อยู่</label>
+                    <input type="text" class="form-control" [(ngModel)]="profile.address" value="{{profile?.address}}" name="lastname">
+                  
+                  </div>
+                   
+                   <div class="form-group">
+                    <label for="exampleInputEmail1">ที่ทำงาน</label>
+                    <input type="text" class="form-control" [(ngModel)]="profile.work" value="{{profile?.work}}" name="lastname">
+                  
+                  </div>
+              
+                 <button type="submit" (click)="save()" class="btn btn-primary">บันทึกข้อมูล</button>
+               
+           </form>
+   
+   </div>

@@ -10,7 +10,7 @@ import { Directive, ElementRef ,ViewChild } from '@angular/core';
 import { element } from 'protractor';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Profile } from '../model/profile';
-
+import { HttpClient } from '@angular/common/http';
 declare var $:any;
 @Component({
   selector: 'app-home',
@@ -25,10 +25,13 @@ export class HomeComponent implements OnInit {
   userid:string;
   email:string;
   uploadImageName: any;
+  postgetbyid: Post;
+  plaintext_comment:string;
+  selectedFileImagePost: File = null;
 
   constructor(private flashMessagesService:FlashMessagesService
     ,private postservice:PostService,private auth:AuthService,
-      element: ElementRef,private modalService: NgbModal) { 
+      element: ElementRef,private modalService: NgbModal,private http:HttpClient) { 
     moment_.locale('th');
   }
   closeResult: string;
@@ -38,6 +41,7 @@ export class HomeComponent implements OnInit {
     this.color = $event.type == 'mouseover' ? 'yellow' : 'red';
   }
 
+ 
   onUploadFinished($event) {
     console.log($event.serverResponse._body);
     this.uploadImageName = $event.serverResponse._body;
@@ -50,13 +54,15 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.myDate = new Date();
 
+    
+    
     this.auth.getProfile().subscribe(
       data=> {
         this.user = data['user'];
         this.email = data['user']['email'];
         this.readpost();
         this.readdata(this.email);
-      
+        console.log(this.getdata(this.email));
       },
       err=>{
         console.log(err);
@@ -65,12 +71,19 @@ export class HomeComponent implements OnInit {
 
     
 
-  }       
+  }
+  
+  getdata(email){
+    this.auth.getprofile(email).subscribe(data=>{
+      console.log(data);
+      
+    })
+  }
 
   getimageby(email){
-    this.auth.getprofile(email).subscribe(data=>{
-      return data['imageprofile'];
-    })
+   this.auth.getprofile(email).subscribe(data=>{
+     return data;
+   })
   }
 
   getimage(image){
@@ -79,6 +92,68 @@ export class HomeComponent implements OnInit {
     return "http://localhost:3080/uploads/"+image;
   }
 
+  onFileSelected(event){
+    this.selectedFileImagePost = <File>event.target.files[0];
+  }
+
+  onUpload(){
+    const fd = new FormData();
+
+
+   if(this.selectedFileImagePost==null){
+   
+    console.log(this.user['_id']+"");
+    
+    this.posts.id_userpost = this.user['_id']+"";
+    this.posts.email = this.email;
+    this.posts.name = this.profiledata.firstname+"  "+this.profiledata.lastname;
+    this.posts.imageprofile = this.profiledata.imageprofile;
+    this.posts.create_on = new Date()+"";
+this.postservice.createPost(this.posts).subscribe(
+  data=>{
+    console.log(data);
+    this.readpost();
+    this.posts.plaintext = "";
+    this.readpost();
+  },
+  err=>{
+console.log(err);
+
+  }
+)
+
+   }else{
+    fd.append('imagepost',this.selectedFileImagePost,this.selectedFileImagePost.name);
+    this.http.post('http://localhost:3080/profile',fd)
+    .subscribe(res=>{
+    this.posts.image = res['result']['imagepost']['0']['filename'];
+    this.posts.id_userpost = this.user['_id']+"";
+    this.posts.email = this.email;
+    this.posts.name = this.profiledata.firstname+"  "+this.profiledata.lastname;
+    this.posts.imageprofile = this.profiledata.imageprofile;
+    this.posts.create_on = new Date()+"";
+this.postservice.createPost(this.posts).subscribe(
+  data=>{
+    console.log(data);
+    this.readpost();
+    this.posts.plaintext = "";
+    this.readpost();
+  },
+  err=>{
+console.log(err);
+
+  }
+)
+    });
+    
+     
+  
+   }
+   
+  
+  
+
+  }
 
   readdata(email){
     this.auth.getprofile(email).subscribe(data=>{
@@ -91,8 +166,33 @@ export class HomeComponent implements OnInit {
     })
 
   }
-  open(content) {
-    this.modalService.open(content).result.then((result) => {
+
+  savecomment(postid){
+    this.auth.comment(postid,this.profiledata.firstname +" "+this.profiledata.lastname,this.plaintext_comment).subscribe(data=>{
+        console.log(data);
+        this.postservice.comment(postid).subscribe(data=>{
+
+          this.postgetbyid = data['post'];
+          console.log(this.postgetbyid['comment'][0]);
+          
+        })
+        
+    });
+    this.plaintext_comment = "";
+    this.readpost();
+    this.readdata(this.email);
+  }
+
+  open(content,postid) {
+    this.postservice.comment(postid).subscribe(data=>{
+
+      this.postgetbyid = data['post'];
+      console.log(this.postgetbyid);
+      
+    })
+    this.modalService.open(content, { centered: true }).result.then((result) => {
+         
+
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -101,12 +201,17 @@ export class HomeComponent implements OnInit {
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
+
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+     
       return 'by clicking on a backdrop';
     } else {
+   
+   
       return  `with: ${reason}`;
     }
+    
   }
 
 
@@ -123,6 +228,7 @@ this.postservice.createPost(this.posts).subscribe(
     console.log(data);
     this.readpost();
     this.posts.plaintext = "";
+    this.readpost();
   },
   err=>{
 console.log(err);

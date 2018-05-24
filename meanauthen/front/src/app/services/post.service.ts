@@ -30,6 +30,8 @@ params = params.append('userid', Iduser);
     return this.http.get(this.baseUri+'/users/like',{params:params}).subscribe();
   }
   
-
+  comment(postid){
+    return this.http.post(this.baseUri+'/users/getpostwithid',{postid:postid},{headers:this.headers});
+  }
 
 }

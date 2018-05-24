@@ -21,14 +21,28 @@ import {ImageUploadModule} from "angular2-image-upload";
 import { SettingprofileComponent } from './settingprofile/settingprofile.component';
 import { ModalDialogModule } from 'ngx-modal-dialog';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { SettingaboutComponent } from './settingprofile/settingabout/settingabout.component';
+import { SettingaccoutComponent } from './settingprofile/settingaccout/settingaccout.component';
+import { ProfilesettingComponent } from './settingprofile/profilesetting/profilesetting.component';
+import { ChatComponent } from './chat/chat.component';
 const appRoutes: Routes =[
 {path:'', component: HomeComponent, canActivate:[AuthGuard]},
 {path:'register', component: RegisterComponent},
 {path:'login', component: LoginComponent},
+{path:'chat', component: ChatComponent},
 {path:'dashboard', component:  DashboardComponent, canActivate:[AuthGuard]},
 {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
-{path:'setting', component: SettingprofileComponent,canActivate:[AuthGuard]}
-]
+{path:'setting', component: SettingprofileComponent,canActivate:[AuthGuard],children: [
+  {
+    path: '',
+    component: ProfilesettingComponent},
+    {
+      path: 'settingabout',
+      component: SettingaboutComponent},
+   {
+      path: 'settingaccount',
+      component: SettingaccoutComponent}]
+}];
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +53,11 @@ const appRoutes: Routes =[
     DashboardComponent,
     ProfileComponent,
     LikebuttonDirective,
-    SettingprofileComponent
+    SettingprofileComponent,
+    SettingaboutComponent,
+    SettingaccoutComponent,
+    ProfilesettingComponent,
+    ChatComponent
   ],
   imports: [NgbModule.forRoot(),
     MomentModule,

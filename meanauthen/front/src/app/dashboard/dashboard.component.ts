@@ -6,7 +6,8 @@ import {Post} from '../model/post';
 import {Router} from '@angular/router';
 import * as moment_ from 'moment';
 import { Profile } from '../model/profile';
-
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { HttpClient } from '@angular/common/http';
 
 declare var $:any;
 @Component({
@@ -22,14 +23,17 @@ export class DashboardComponent implements OnInit {
    user_id:string;
   postdata:Post;
   namenavbar = "Feed News";
-  
+  closeResult: string;
+  postgetbyid: Post;
+  selectedFileImagePost: File = null;
+  plaintext_comment:string;
   useremail:string;
   profiledata:Profile
   user:Object;
   havingProfileimage:boolean;
   constructor(private flashMessagesService:FlashMessagesService,private postservice:PostService,
   private authservice:AuthService,
-private router:Router) { 
+private router:Router,private modalService: NgbModal,private http:HttpClient) { 
   moment_.locale('th');
  this.nowDate = moment_().toNow();
 
@@ -50,6 +54,117 @@ private router:Router) {
      
 
  
+  }
+
+  onFileSelected(event){
+    this.selectedFileImagePost = <File>event.target.files[0];
+  }
+
+  onUpload(){
+    const fd = new FormData();
+
+
+   if(this.selectedFileImagePost==null){
+   
+    console.log(this.user['_id']+"");
+    
+    this.posts.id_userpost = this.user['_id']+"";
+    this.posts.email = this.useremail;
+    this.posts.name = this.profiledata.firstname+"  "+this.profiledata.lastname;
+    this.posts.imageprofile = this.profiledata.imageprofile;
+    this.posts.create_on = new Date()+"";
+this.postservice.createPost(this.posts).subscribe(
+  data=>{
+    console.log(data);
+    this.readPost();
+    this.posts.plaintext = "";
+    this.readPost();
+  },
+  err=>{
+console.log(err);
+
+  }
+)
+
+   }else{
+    fd.append('imagepost',this.selectedFileImagePost,this.selectedFileImagePost.name);
+    this.http.post('http://localhost:3080/profile',fd)
+    .subscribe(res=>{
+    this.posts.image = res['result']['imagepost']['0']['filename'];
+    this.posts.id_userpost = this.user['_id']+"";
+    this.posts.email = this.useremail;
+    this.posts.name = this.profiledata.firstname+"  "+this.profiledata.lastname;
+    this.posts.imageprofile = this.profiledata.imageprofile;
+    this.posts.create_on = new Date()+"";
+this.postservice.createPost(this.posts).subscribe(
+  data=>{
+    console.log(data);
+    this.readPost();
+    this.posts.plaintext = "";
+    this.readPost();
+  },
+  err=>{
+console.log(err);
+
+  }
+)
+    });
+    
+     
+  
+   }
+   
+  
+  
+
+  }
+
+  
+  savecomment(postid){
+    this.authservice.comment(postid,this.profiledata.firstname +" "+this.profiledata.lastname,this.plaintext_comment).subscribe(data=>{
+        console.log(data);
+        this.postservice.comment(postid).subscribe(data=>{
+
+          this.postgetbyid = data['post'];
+          console.log(this.postgetbyid['comment'][0]);
+          
+        })
+        
+    });
+    this.plaintext_comment = "";
+    this.readPost();
+    this.readdata(this.useremail);
+  }
+
+  open(content,postid) {
+    this.postservice.comment(postid).subscribe(data=>{
+
+      this.postgetbyid = data['post'];
+      console.log(this.postgetbyid);
+      
+    })
+    this.modalService.open(content, { centered: true }).result.then((result) => {
+         
+
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+     
+      return 'by clicking on a backdrop';
+    } else {
+   
+   
+      return  `with: ${reason}`;
+    }
+    
   }
 
   

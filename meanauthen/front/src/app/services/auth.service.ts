@@ -25,6 +25,10 @@ export class AuthService {
     this.remember = remembercheck;
    }
 
+
+   comment(idpost,namecomment,plaintext){
+    return this.http.post(this.baseUri+'/users/comment',{idpost:idpost,namecomment:namecomment,plaintext:plaintext},{headers:this.headers});
+   }
    loggedIn(){
     const helper = new JwtHelperService();
 
@@ -98,7 +102,6 @@ export class AuthService {
   getprofile(email){
     let params = new HttpParams();
 params = params.append('email',email);
-
 
     
 

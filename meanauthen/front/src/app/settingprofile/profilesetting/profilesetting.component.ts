@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { log } from 'util';
-import {HttpClientModule,HttpClient} from '@angular/common/http';
-import {AuthService} from '../services/auth.service';
-import {Profile} from '../model/profile'; 
+import { Profile } from '../../model/profile';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
+
+
 @Component({
-  selector: 'app-settingprofile',
-  templateUrl: './settingprofile.component.html',
-  styleUrls: ['./settingprofile.component.css']
+  selector: 'app-profilesetting',
+  templateUrl: './profilesetting.component.html',
+  styleUrls: ['./profilesetting.component.css']
 })
-export class SettingprofileComponent implements OnInit {
+export class ProfilesettingComponent implements OnInit {
+
   selectedFileProfile: File = null;
   selectedFileCover: File = null;
   profile= new Profile();
@@ -126,12 +128,12 @@ export class SettingprofileComponent implements OnInit {
   alert("บันทึกเรียบร้อย");
     });
 
-   
+  
 
   }
   console.log(this.profile.imagecover + this.profile.imageprofile);
   
-
+location.reload();
   }
 
   getimage(image){

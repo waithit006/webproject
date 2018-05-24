@@ -6,11 +6,11 @@ var postSchema = mongoose.Schema({
         create_on: {type:String},
         plaintext:{type:String},
         like_by: [{type:String}],
-        comment: [{id_usercomment:String,plaintext_comment:String}],
+        comment: [{name_comment:String,plaintext_comment:String}],
         shared_by: [{type:String}],
         email: {type:String},
         imageprofile:{type:String},
-        image:[{type:String}]
+        image:{type:String}
 
 });
 

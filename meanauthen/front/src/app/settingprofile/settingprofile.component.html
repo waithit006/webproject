@@ -2,13 +2,13 @@
 
 <div class="container-full" style="margin-top: 30px">
  
-    <div class="header col-10 col-sm-10 col-md-10 col-lg-8 col-xl-8 rounded-top" [ngStyle]="{'background-image': profiledata?.imagecover!=null?'url('+getimage(profiledata?.imagecover)+')':
+    <div class="header col-10 col-sm-10 col-md-10 col-lg-8 col-xl-8 rounded-top" [ngStyle]="{'background-image': profile?.imagecover!=null?'url('+getimage(profile?.imagecover)+')':
   'url(https://images2.alphacoders.com/474/thumb-1920-474206.jpg)'}">
       </div>
       <div class="row grey-row">
         <div class="map">
-            <img src="/assets/image/navbar_logo.jpg" *ngIf="profiledata?.imageprofile==undefined" alt="..." class="img-thumbnail mx-auto d-block rounded-circle">
-          <img src="{{getimage(profiledata.imageprofile)}}" *ngIf="profiledata?.imageprofile!=undefined" alt="..." class="img-thumbnail mx-auto d-block rounded-circle">
+            <img src="/assets/image/navbar_logo.jpg" *ngIf="profile?.imageprofile==undefined" alt="..." class="img-thumbnail mx-auto d-block rounded-circle">
+          <img src="{{getimage(profile.imageprofile)}}" *ngIf="profile?.imageprofile!=undefined" alt="..." class="img-thumbnail mx-auto d-block rounded-circle">
           <div class="authorcontent mt-0">
           </div>
         </div>
@@ -26,14 +26,14 @@
       <div class="about block shadow-sm pt-3 pb-3 pl-3 pr-3 bg-white rounded">
           <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="#">ตั้งค่าข้อมูลส่วนตัว</a>
+                <a class="nav-link active" href="/setting">ตั้งค่าข้อมูลส่วนตัว</a>
               </li>
 
               <li class="nav-item">
-                  <a class="nav-link active" href="#">ตั้งค่าข้อมูลเกี่ยวกับฉัน</a>
+                  <a class="nav-link active" href="/setting/settingabout">ตั้งค่าข้อมูลเกี่ยวกับฉัน</a>
                 </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">ผู้ใช้และรหัสผ่าน</a>
+                <a class="nav-link" href="/setting/settingaccount" >ผู้ใช้และรหัสผ่าน</a>
               </li>
              
             </ul>
@@ -48,59 +48,7 @@
   <div class="col-9 mt-3">
       
      
-  
-      <div class="about block shadow-sm pt-3 pl-3 pr-3 bg-white rounded">
-       <div class="head border-bottom">
-       <h2> ตั้งค่าโปรไฟล์ </h2>
-        </div>
-  
-        <form class="m-3 pb-3">
-            <div class="form-group">
-                <label for="exampleInputEmail1"><b>รูปภาพประจำตัว</b> <span class="badge badge-pill badge-warning ml-3">หากไม่มีรูปโปรไฟล์ไม่สามารถเข้าหน้า feed ได้</span></label>
-           <input type="file"  (change)="onFileSelected($event)" class="form-control-file" id="exampleFormControlFile1">
-           <label for="exampleInputEmail1"><b>รูปภาพหน้าปก</b></label>
-           <input type="file" (change)="onFileSelectedCover($event)" class="form-control-file" id="exampleFormControlFile1">
-            </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">ชื่อ</label>
-                  <input type="text" class="form-control" [(ngModel)]="profile.firstname" value="{{profiledata?.firstname}}"name="firstname">
-        
-                </div>
-              
-                <div class="form-group">
-                    <label for="exampleInputEmail1">นามสกุล</label>
-                    <input type="text" class="form-control" [(ngModel)]="profile.lastname" value="{{profiledata?.lastname}}" name="lastname">
-                  
-                  </div>
-              
-                       
-                <div class="form-group">
-                    <label for="exampleInputEmail1">ชื่อเล่น</label>
-                    <input type="text" class="form-control" [(ngModel)]="profile.nickname" value="{{profiledata?.nickname}}" name="lastname">
-                  
-                  </div>
-                  
-                <div class="form-group">
-                    <label for="exampleInputPassword1">วันเกิด</label>
-                <input type="date" name="bday" class="form-control" [(ngModel)]="profile.birthdate"  value="{{profiledata?.birthdate}}" >
-                
-                <div class="form-group">
-              </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="customRadioInline1" value="ชาย" name="customRadioInline1" [(ngModel)]="profile.gender" [checked]="profiledata?.gender=='ชาย'" class="custom-control-input">
-                  <label class="custom-control-label" for="customRadioInline1" >ชาย</label>
-                </div>
-              
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio"  [(ngModel)]="profile.gender " value="หญิง" id="customRadioInline2" [checked]="profiledata?.gender=='หญิง'" name="customRadioInline1" class="custom-control-input">
-                  <label class="custom-control-label" for="customRadioInline2">หญิง</label>
-                </div>
-                </div>
-                <button type="submit" (click)="onUpload()" class="btn btn-primary">บันทึกข้อมูล</button>
-              
-          </form>
-  
-  </div>
+  <router-outlet></router-outlet>
   </div>
   
   
